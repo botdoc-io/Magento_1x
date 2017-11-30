@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BotDoc_BotDoc extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       BotDoc
+ * @package        BotDoc_BotDoc
+ * @copyright      Copyright (c) 2017
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <BotDoc_BotDoc>
+            <version>1.0.0</version>
+        </BotDoc_BotDoc>
+    </modules>
+    <global>
+        <resources>
+            <botdoc_botdoc_setup>
+                <setup>
+                    <module>BotDoc_BotDoc</module>
+                    <class>BotDoc_BotDoc_Model_Resource_Setup</class>
+                </setup>
+            </botdoc_botdoc_setup>
+        </resources>
+        <blocks>
+            <botdoc_botdoc>
+                <class>BotDoc_BotDoc_Block</class>
+            </botdoc_botdoc>
+        </blocks>
+        <helpers>
+            <botdoc_botdoc>
+                <class>BotDoc_BotDoc_Helper</class>
+            </botdoc_botdoc>
+        </helpers>
+        <models>
+            <botdoc_botdoc>
+                <class>BotDoc_BotDoc_Model</class>
+                <resourceModel>botdoc_botdoc_resource</resourceModel>
+            </botdoc_botdoc>
+        </models>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <botdoc_botdoc>
+                    <file>botdoc_botdoc.xml</file>
+                </botdoc_botdoc>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <BotDoc_BotDoc>
+                    <files>
+                        <default>BotDoc_BotDoc.csv</default>
+                    </files>
+                </BotDoc_BotDoc>
+            </modules>
+        </translate>
+        <global_search>
+            <documentrequest>
+                <class>botdoc_botdoc/adminhtml_search_documentrequest</class>
+                <acl>botdoc_botdoc</acl>
+            </documentrequest>
+        </global_search>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <BotDoc_BotDoc before="Mage_Adminhtml">BotDoc_BotDoc_Adminhtml</BotDoc_BotDoc>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>
