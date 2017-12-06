@@ -25,46 +25,15 @@
                         <children>
                             <config>
                                 <children>
-                                    <botdoc_botdoc translate="title" module="botdoc_botdoc">
+                                    <botdoc translate="title" module="botdoc_botdoc">
                                         <title>BotDoc</title>
-                                    </botdoc_botdoc>
+                                    </botdoc>
                                 </children>
                             </config>
                         </children>
                     </system>
-                    <sales>
-                        <children>
-                            <botdoc_botdoc translate="title" module="botdoc_botdoc">
-                                <title>BotDoc</title>
-                                <children>
-                                    <documentrequest translate="title" module="botdoc_botdoc">
-                                        <title>Document Request</title>
-                                        <sort_order>0</sort_order>
-                                    </documentrequest>
-                                </children>
-                            </botdoc_botdoc>
-                        </children>
-                    </sales>
                 </children>
             </admin>
         </resources>
     </acl>
-    <menu>
-        <sales>
-            <children>
-                <botdoc_botdoc translate="title" module="botdoc_botdoc">
-                    <title>BotDoc</title>
-                    <sort_order>300</sort_order>
-                    <children>
-                        <documentrequest translate="title" module="botdoc_botdoc">
-                            <title>Document Request</title>
-                            <action>adminhtml/botdoc_documentrequest</action>
-                            <sort_order>0</sort_order>
-                        </documentrequest>
-                    </children>
-                </botdoc_botdoc>
-            </children>
-        </sales>
-
-    </menu>
 </config>

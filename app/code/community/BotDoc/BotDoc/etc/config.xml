@@ -23,14 +23,6 @@
         </BotDoc_BotDoc>
     </modules>
     <global>
-        <resources>
-            <botdoc_botdoc_setup>
-                <setup>
-                    <module>BotDoc_BotDoc</module>
-                    <class>BotDoc_BotDoc_Model_Resource_Setup</class>
-                </setup>
-            </botdoc_botdoc_setup>
-        </resources>
         <blocks>
             <botdoc_botdoc>
                 <class>BotDoc_BotDoc_Block</class>
@@ -44,7 +36,6 @@
         <models>
             <botdoc_botdoc>
                 <class>BotDoc_BotDoc_Model</class>
-                <resourceModel>botdoc_botdoc_resource</resourceModel>
             </botdoc_botdoc>
         </models>
     </global>
@@ -56,21 +47,17 @@
                 </botdoc_botdoc>
             </updates>
         </layout>
-        <translate>
-            <modules>
-                <BotDoc_BotDoc>
-                    <files>
-                        <default>BotDoc_BotDoc.csv</default>
-                    </files>
-                </BotDoc_BotDoc>
-            </modules>
-        </translate>
-        <global_search>
-            <documentrequest>
-                <class>botdoc_botdoc/adminhtml_search_documentrequest</class>
-                <acl>botdoc_botdoc</acl>
-            </documentrequest>
-        </global_search>
+        <events>
+            <adminhtml_widget_container_html_before>
+                <observers>
+                    <botdoc_requests>
+                        <type>singleton</type>
+                        <class>botdoc_botdoc/observer</class>
+                        <method>adminhtmlWidgetContainerHtmlBefore</method>
+                    </botdoc_requests>
+                </observers>
+            </adminhtml_widget_container_html_before>
+        </events>
     </adminhtml>
     <admin>
         <routers>
@@ -78,6 +65,7 @@
                 <args>
                     <modules>
                         <BotDoc_BotDoc before="Mage_Adminhtml">BotDoc_BotDoc_Adminhtml</BotDoc_BotDoc>
+                        <frontName>botdoc</frontName>
                     </modules>
                 </args>
             </adminhtml>

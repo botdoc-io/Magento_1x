@@ -17,35 +17,27 @@
  */
 --> 
 <layout>
-    <!-- Documentrequest actions -->
-    <adminhtml_botdoc_documentrequest_index>
-        <reference name="menu">
-            <action method="setActive">
-                <menupath>sales/botdoc_botdoc/documentrequest</menupath>
+   <adminhtml_sales_order_view>
+        <reference name="head">
+            <action method="addJs">
+                <script>botdoc/modal.js</script>
             </action>
         </reference>
+    </adminhtml_sales_order_view>
+    <adminhtml_botdoc_request>
         <reference name="content">
-            <block type="botdoc_botdoc/adminhtml_documentrequest" name="documentrequest" />
+            <block type="botdoc/adminhtml_request"
+                   name='botdoc.adminhtml.request' template="botdoc/request.phtml">
+            </block>
         </reference>
-    </adminhtml_botdoc_documentrequest_index>
-    <adminhtml_botdoc_documentrequest_grid>
-        <block type="core/text_list" name="root" output="toHtml">
-            <block type="botdoc_botdoc/adminhtml_documentrequest_grid" name="documentrequest_grid"/>
-        </block>
-    </adminhtml_botdoc_documentrequest_grid>
-    <adminhtml_botdoc_documentrequest_edit>
-        <update handle="editor"/>
-        <reference name="menu">
-            <action method="setActive">
-                <menupath>sales/botdoc_botdoc/documentrequest</menupath>
+        <reference name="head">
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
             </action>
         </reference>
-        <reference name="content">
-            <block type="botdoc_botdoc/adminhtml_documentrequest_edit" name="documentrequest_edit"></block>
-        </reference>
-        <reference name="left">
-            <block type="botdoc_botdoc/adminhtml_documentrequest_edit_tabs" name="documentrequest_tabs"></block>
-        </reference>
-    </adminhtml_botdoc_documentrequest_edit>
-
+    </adminhtml_botdoc_request>
 </layout>
