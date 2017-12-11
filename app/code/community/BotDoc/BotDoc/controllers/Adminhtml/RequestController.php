@@ -25,15 +25,53 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
 {
 	public function indexAction()
     {
-       $this->loadLayout();
-	   $this->_title($this->__("BoDoc"));
-	   $this->renderLayout();
+        $this->loadLayout();
+        $this->_title($this->__("BoDoc"));
+        $this->renderLayout();
     }
     
     public function filesAction($orderId = null)
     {
-       $this->loadLayout();
-	   $this->_title($this->__("BoDoc"));
-	   $this->renderLayout();
+
+        $this->loadLayout();
+        $this->_title($this->__("BoDoc"));
+        $this->renderLayout();
+        #Zend_Debug::dump($this->getLayout()->getUpdate()->getHandles()); 
+    }
+
+
+    protected function _prepareForm() {
+ 
+        $form = new Varien_Data_Form(array(
+            'id' => 'edit_form',
+            'action' => $this->getUrl('*/*/save'),
+            'method' => 'post',
+            'enctype' => 'multipart/form-data',
+                )
+        );
+ 
+        $base_fieldset = $form->addFieldset(
+                'base', array(
+            'legend' => Mage::helper('botdoc_botdoc')->__('Test data'),
+                )
+        );
+ 
+ 
+        $base_fieldset->addField(
+                'authorize_btn', 'button', array(
+                'name' => 'authorize_btn',
+                'label' => Mage::helper('botdoc_botdoc')->__(
+                        'Click on folowing link to test popup Dialog:'
+                ),
+                'value' => $this->helper('botdoc_botdoc')->__('Test popup dialog >>'),
+                'class' => 'form-button',
+                'onclick' => 'javascript:openMyPopup()'
+            )
+        );
+ 
+        $form->setUseContainer(true);
+        $this->setForm($form);
+ 
+        parent::_prepareForm();
     }
 }

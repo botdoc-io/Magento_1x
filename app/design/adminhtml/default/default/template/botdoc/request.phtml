@@ -1,1 +1,63 @@
-Olaaaa
+<?php
+/**
+ * BotDoc_BotDoc extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       BotDoc
+ * @package        BotDoc_BotDoc
+ * @copyright      Copyright (c) 2017
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+/**
+ * BotDoc default helper
+ *
+ * @category    BotDoc
+ * @package     BotDoc_BotDoc
+ * @author      BotDoc
+ */
+?>
+<?php 
+if ($this->canDisplayBotDoc()): ?>
+<div class="entry-edit box-left">
+	<div class="entry-edit-head">
+        <h4><?php echo Mage::helper('botdoc_botdoc')->__('Send BotDoc Request for Files') ?></h4>
+    </div>
+	<div id="botdoc_request" class="">
+	    <div class="entry-edit">
+	        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
+				<fieldset>
+					<input type="hidden" id="request[order_id]" name="request[order_id]" value="order" />
+					<span class="field-row">
+						<label class="normal" for="botdoc_email"><?php echo Mage::helper('botdoc_botdoc')->__('Email Address: ') ?></label>
+			            <input class="input-text" type="text" id="botdoc_email" name="request[email]" value="<?php echo $this->getEmail(); ?>" />
+			        </span>
+			        <span class="field-row">
+						<label class="normal" for="botdoc_phone_number"><?php echo Mage::helper('botdoc_botdoc')->__('Phone Number: ') ?></label>
+			            <input class="input-text" type="text" id="botdoc_phone_number" name="request[phone]" value="<?php echo $this->getPhoneNumber(); ?>" />
+			        </span>
+			        <span class="field-row">
+			            <label class="normal" for="botdoc_comment"><?php echo Mage::helper('botdoc_botdoc')->__('Message:') ?></label>
+			            <textarea name="request[comment]" rows="3" cols="5" style="height:6em; width:99%;" id="botdoc_comment"><?php echo $this->getDefaultMessage(); ?></textarea>
+			        </span>
+			        <div class="f-left">
+						<input name="request[enable_email]" type="checkbox" id="botdoc_enable_email" value="1" checked><label class="normal" for="botdoc_enable_email"> <?php echo Mage::helper('botdoc_botdoc')->__('Send Email') ?></label><br>
+						<input name="request[enable_phone]" type="checkbox" id="botdoc_enable_phone" value="1" checked><label class="normal" for="botdoc_enable_phone"> <?php echo Mage::helper('botdoc_botdoc')->__('Send SMS') ?></label>
+					</div>
+					<div class="f-right">
+			            <?php echo $this->getSaveButtonHtml(); ?>
+			        </div>
+					
+				</fieldset>
+	        </form>
+	    </div>
+	</div>
+</div>
+<?php
+endif;
+?>

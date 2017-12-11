@@ -48,7 +48,7 @@
             </updates>
         </layout>
         <events>
-            <adminhtml_widget_container_html_before>
+            <!--<adminhtml_widget_container_html_before>
                 <observers>
                     <botdoc_requests>
                         <type>singleton</type>
@@ -56,7 +56,7 @@
                         <method>adminhtmlWidgetContainerHtmlBefore</method>
                     </botdoc_requests>
                 </observers>
-            </adminhtml_widget_container_html_before>
+            </adminhtml_widget_container_html_before>-->
         </events>
     </adminhtml>
     <admin>
@@ -64,7 +64,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <BotDoc_BotDoc before="Mage_Adminhtml">BotDoc_BotDoc_Adminhtml</BotDoc_BotDoc>
+                        <botdoc before="Mage_Adminhtml">BotDoc_BotDoc_Adminhtml</botdoc>
                         <frontName>botdoc</frontName>
                     </modules>
                 </args>

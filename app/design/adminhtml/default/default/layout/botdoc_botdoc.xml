@@ -17,27 +17,26 @@
  */
 --> 
 <layout>
-   <adminhtml_sales_order_view>
+    <adminhtml_sales_order_view>
         <reference name="head">
             <action method="addJs">
                 <script>botdoc/modal.js</script>
             </action>
+            <!--<action method="addItem"><type>js</type><name>prototype/window.js</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>-->
         </reference>
-    </adminhtml_sales_order_view>
-    <adminhtml_botdoc_request>
-        <reference name="content">
-            <block type="botdoc/adminhtml_request"
-                   name='botdoc.adminhtml.request' template="botdoc/request.phtml">
+        <reference name="order_tab_info">
+            <block type="botdoc_botdoc/adminhtml_request" name="popup_window" template="botdoc/request.phtml" before="-">
             </block>
         </reference>
-        <reference name="head">
-            <action method="addItem">
-                <type>js_css</type>
-                <name>prototype/windows/themes/default.css</name>
-            </action>
-            <action method="addCss">
-                <name>lib/prototype/windows/themes/magento.css</name>
-            </action>
+        
+    </adminhtml_sales_order_view>
+    <adminhtml_request_index>
+        <block type="core/template" output="toHtml" name="botdoc.adminhtml.request.index" template="botdoc/request.phtml"></block>
+    </adminhtml_request_index>
+    <adminhtml_request_files>
+        <reference name="content">
+            <block type="botdoc/adminhtml_request" output="toHtml"  name='botdoc.adminhtml.request' template="botdoc/request.phtml"></block>
         </reference>
-    </adminhtml_botdoc_request>
+    </adminhtml_request_files>
 </layout>

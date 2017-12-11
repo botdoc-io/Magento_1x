@@ -22,10 +22,11 @@
  * @author      BotDoc
  */
 class BotDoc_BotDoc_Helper_Data extends Mage_Core_Helper_Abstract {
-    const SETTINGS_BOTDOC_ENABLED   = 'botdoc/settings/enabled'; 
-    const SETTINGS_BOTDOC_EMAIL     = 'botdoc/settings/email';
-    const SETTINGS_BOTDOC_API_KEY   = 'botdoc/settings/api_key';
-    const SETTINGS_BOTDOC_TOKEN     = 'botdoc/settings/token';
+    const SETTINGS_BOTDOC_ENABLED               = 'botdoc/settings/enabled'; 
+    const SETTINGS_BOTDOC_EMAIL                 = 'botdoc/settings/email';
+    const SETTINGS_BOTDOC_API_KEY               = 'botdoc/settings/api_key';
+    const SETTINGS_BOTDOC_TOKEN                 = 'botdoc/settings/token';
+    const SETTINGS_BOTDOC_DEFAULT_MESSAGE       = 'botdoc/settings/default_message';
     
     /**
      * convert array to options
@@ -56,7 +57,21 @@ class BotDoc_BotDoc_Helper_Data extends Mage_Core_Helper_Abstract {
     public function getEnabled() {
         return Mage::getStoreConfigFlag(self::SETTINGS_BOTDOC_ENABLED);
     }
-
+    /**
+     * get the default message set buy the user
+     *
+     * @access public
+     * @return boolean
+     * @author BotDoc
+     */
+    public function getDefaultMessage() {
+        $default_message = $this->__('Please, we need a picture of your id to verify your purchase!');
+        if(empty(Mage::getStoreConfig(self::SETTINGS_BOTDOC_DEFAULT_MESSAGE))){
+            return $default_message;
+        }else{
+            return Mage::getStoreConfig(self::SETTINGS_BOTDOC_DEFAULT_MESSAGE);
+        }
+    }
     /**
      * get Botdoc account username/email
      *

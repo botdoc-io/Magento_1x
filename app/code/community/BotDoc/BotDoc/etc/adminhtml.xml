@@ -17,10 +17,42 @@
  */
 -->
 <config>
+    <menu>
+        <botdoc_request module="botdoc_botdoc" translate="title">
+            <title>BotDoc</title>
+            <sort_order>100</sort_order>
+            <children>
+                <index module="botdoc_botdoc" translate="title">
+                    <title>Index Action</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/request</action>
+                </index>
+                <files module="botdoc_botdoc" translate="title">
+                    <title>List Action</title>
+                    <sort_order>2</sort_order>
+                    <action>adminhtml/request/files</action>
+                </files>
+            </children>
+        </botdoc_request>
+    </menu>
     <acl>
         <resources>
             <admin>
                 <children>
+                    <botdoc_request translate="title" module="botdoc_botdoc">
+                        <title>BotDoc</title>
+                        <sort_order>-100</sort_order>
+                        <children>
+                            <index translate="title">
+                                <title>View All Document Requests</title>
+                                <sort_order>1</sort_order>
+                            </index>
+                            <files translate="title">
+                                <title>Request Action</title>
+                                <sort_order>2</sort_order>
+                            </files>
+                        </children>
+                    </botdoc_request>
                     <system>
                         <children>
                             <config>

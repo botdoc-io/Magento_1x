@@ -22,24 +22,5 @@
  * @author      BotDoc
  */
 class BotDoc_BotDoc_Model_Observer extends Mage_Core_Helper_Abstract {
-	 /**
-     * Include Button to send a new BotDoc Requst
-     *
-     * @access public
-     * @param $event
-     * @return void
-     * @author BotDoc
-     */
-	public function adminhtmlWidgetContainerHtmlBefore($event) {
-        $block = $event->getBlock();
-        $helper = Mage::helper('botdoc_botdoc');
-        if ($helper->getEnabled() && $block instanceof Mage_Adminhtml_Block_Sales_Order_View) {
-            $orderId              = $block->getOrder()->getId();
-			
-			$block->addButton('send_botdoc_request', array(
-                'label' => 'BotDoc Request Documents',
-                'onclick' => 'openBotDocPopup(\'' . Mage::helper("adminhtml")->getUrl('botdoc/request/files/') . '\')',
-            ), 0, 100, 'header', 'header');
-        }
-    }
+	
 }
