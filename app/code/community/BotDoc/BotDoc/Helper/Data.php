@@ -65,7 +65,7 @@ class BotDoc_BotDoc_Helper_Data extends Mage_Core_Helper_Abstract {
      * @author BotDoc
      */
     public function getDefaultMessage() {
-        $default_message = $this->__('Please, we need a picture of your id to verify your purchase!');
+        $default_message = $this->__('Hi {{customer.name}}, we from {{store.name}} need a picture of your id to verify your order {{order.number}}!');
         if(empty(Mage::getStoreConfig(self::SETTINGS_BOTDOC_DEFAULT_MESSAGE))){
             return $default_message;
         }else{

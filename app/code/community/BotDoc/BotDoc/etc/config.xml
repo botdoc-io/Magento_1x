@@ -71,4 +71,15 @@
             </adminhtml>
         </routers>
     </admin>
+    <default>
+        <botdoc>
+            <settings>
+                <enabled>0</enabled>
+                <email></email>
+                <api_key></api_key>
+                <default_message>Hi {{customer.name}}, we from {{store.name}} need a picture of your ID to verify your order {{order.number}}!</default_message>
+            </settings>
+        </botdoc>
+    </default>
+    
 </config>

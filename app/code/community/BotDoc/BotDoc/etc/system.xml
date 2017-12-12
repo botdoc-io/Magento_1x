@@ -34,6 +34,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
                         </email>
                         <api_key translate="label" module="botdoc_botdoc">
                             <label>API Key</label>
@@ -43,6 +44,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                             <depends><enabled>1</enabled></depends>
+                            <validate>required-entry</validate>
                         </api_key>
                         <token translate="label" module="botdoc_botdoc">
                             <label></label>
@@ -51,14 +53,17 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <depends><enabled>1</enabled></depends>
                         </token>
-                        <default_message translate="label" module="botdoc_botdoc">
+                        <default_message translate="label,comment" module="botdoc_botdoc">
                             <label>Default Message</label>
+                            <comment>You can use {{customer.name}} {{customer.email}} {{store.name}} {{store.phone}} {{order.number}}, just rember to try to keep only 140 characters long </comment>
                             <frontend_type>textarea</frontend_type>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
+                            <validate>validate-length maximum-length-140</validate>
                             <depends><enabled>1</enabled></depends>
                         </default_message>
                     </fields>

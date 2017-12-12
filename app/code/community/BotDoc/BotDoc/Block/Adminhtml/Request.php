@@ -79,7 +79,7 @@ class BotDoc_BotDoc_Block_Adminhtml_Request extends Mage_Adminhtml_Block_Templat
     }
     public function getSaveUrl()
     {
-        return $this->getUrl('adminhtml/request/send_request',
+        return $this->getUrl('adminhtml/request/submit',
             array(
                 'entity'=>$this->getEntity()->getId(),
                 'type'  =>'order',
@@ -124,6 +124,21 @@ class BotDoc_BotDoc_Block_Adminhtml_Request extends Mage_Adminhtml_Block_Templat
     {
         return $this->helper('botdoc_botdoc')->getEnabled();
     }
+    private function changeMessageText($message = null){
+    	$params = array(
+    		'{{customer.name}}' 		=> $this->getCustomerName(),
+    		'{{customer.email}}' 		=> $this->getCustomerEmail(),
+    		'{{customer.phone}}' 		=> $this->getCustomerPhoneNumber(),
+    		'{{store.name}}' 			=> $this->getStoreName(),
+    		'{{store.phone}}' 			=> $this->getStorePhone(),
+    		'{{order.number}}' 			=> $this->getOrderNumber(),
+    	);
+    	foreach ($params as $key => $value) {
+    		$message = str_replace($key, $value, $message);
+    	}
+    	return $message;
+    }
+
     /**
      * Get the Default Message for the account or use ours
      *
@@ -131,14 +146,46 @@ class BotDoc_BotDoc_Block_Adminhtml_Request extends Mage_Adminhtml_Block_Templat
      */
     public function getDefaultMessage()
     {
-    	return Mage::helper('botdoc_botdoc')->getDefaultMessage();
+    	/*
+    	{{customer.name}}
+    	{{customer.email}}
+    	{{store.name}}
+    	{{store.phone}}
+    	{{order.number}}
+		*/
+    	return $this->changeMessageText(Mage::helper('botdoc_botdoc')->getDefaultMessage());
+    }
+    /**
+     * Get The order Number
+     *
+     * @return string
+     */
+    public function getOrderNumber(){
+    	return $this->getOrder()->getIncrementId();
+    }
+    /**
+     * Get Order Id
+     *
+     * @return string
+     */
+    public function getOrderId(){
+    	return $this->getOrder()->getId();
+    }
+    /**
+     * Get customer name
+     *
+     * @return string
+     */
+    public function getCustomerName()
+    {
+    	return $this->getOrder()->getCustomerName();
     }
     /**
      * Get customer email
      *
-     * @return boolean
+     * @return string
      */
-    public function getEmail()
+    public function getCustomerEmail()
     {
     	return $this->getOrder()->getCustomerEmail();
     }
@@ -146,10 +193,30 @@ class BotDoc_BotDoc_Block_Adminhtml_Request extends Mage_Adminhtml_Block_Templat
     /**
      * Get customer Phone number
      *
-     * @return boolean
+     * @return string
      */
-    public function getPhoneNumber()
+    public function getCustomerPhoneNumber()
     {
     	return  $this->getOrder()->getShippingAddress()->getTelephone();
     }
+
+    /**
+     * Get Store Name
+     *
+     * @return string
+     */
+    public function getStoreName()
+    {
+    	return Mage::getStoreConfig('general/store_information/name');
+    }
+
+    /**
+     * Get Store Phone
+     *
+     * @return string
+     */
+    public function getStorePhone()
+    {
+		return Mage::getStoreConfig('general/store_information/phone');
+	}
 }

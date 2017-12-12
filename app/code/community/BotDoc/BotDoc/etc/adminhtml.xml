@@ -23,15 +23,20 @@
             <sort_order>100</sort_order>
             <children>
                 <index module="botdoc_botdoc" translate="title">
-                    <title>Index Action</title>
+                    <title>Document Request Links</title>
                     <sort_order>1</sort_order>
                     <action>adminhtml/request</action>
                 </index>
                 <files module="botdoc_botdoc" translate="title">
-                    <title>List Action</title>
+                    <title>View BotDoc Block on Order</title>
                     <sort_order>2</sort_order>
                     <action>adminhtml/request/files</action>
                 </files>
+                <submit module="botdoc_botdoc" translate="title">
+                    <title>Send Request</title>
+                    <sort_order>2</sort_order>
+                    <action>adminhtml/request/submit</action>
+                </submit>
             </children>
         </botdoc_request>
     </menu>
@@ -44,13 +49,17 @@
                         <sort_order>-100</sort_order>
                         <children>
                             <index translate="title">
-                                <title>View All Document Requests</title>
+                                <title>Document Request Links</title>
                                 <sort_order>1</sort_order>
                             </index>
                             <files translate="title">
-                                <title>Request Action</title>
+                                <title>View BotDoc Block on Order</title>
                                 <sort_order>2</sort_order>
                             </files>
+                            <submit translate="title">
+                                <title>Send Request</title>
+                                <sort_order>3</sort_order>
+                            </submit>
                         </children>
                     </botdoc_request>
                     <system>

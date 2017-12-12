@@ -39,39 +39,52 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
         #Zend_Debug::dump($this->getLayout()->getUpdate()->getHandles()); 
     }
 
+    /**
+     * Submit Request, get post data, connect with botdoc and submit the request
+     * Save the message on the Order History
+     * Redirect to the order page
+     * @return void
+     */
+    public function submitAction($oderId = null){
+        $postParams = $this->getRequest()->getParam('request');
+        $helper = Mage::helper('botdoc_botdoc');
+        if(!empty($postParams) && !empty($postParams['order_id']) && !empty($postParams['comment'])){
 
-    protected function _prepareForm() {
- 
-        $form = new Varien_Data_Form(array(
-            'id' => 'edit_form',
-            'action' => $this->getUrl('*/*/save'),
-            'method' => 'post',
-            'enctype' => 'multipart/form-data',
-                )
-        );
- 
-        $base_fieldset = $form->addFieldset(
-                'base', array(
-            'legend' => Mage::helper('botdoc_botdoc')->__('Test data'),
-                )
-        );
- 
- 
-        $base_fieldset->addField(
-                'authorize_btn', 'button', array(
-                'name' => 'authorize_btn',
-                'label' => Mage::helper('botdoc_botdoc')->__(
-                        'Click on folowing link to test popup Dialog:'
-                ),
-                'value' => $this->helper('botdoc_botdoc')->__('Test popup dialog >>'),
-                'class' => 'form-button',
-                'onclick' => 'javascript:openMyPopup()'
-            )
-        );
- 
-        $form->setUseContainer(true);
-        $this->setForm($form);
- 
-        parent::_prepareForm();
+            // In Case of success add the message to the order history (dont send email to the client because he will receive anyways)
+            $order = Mage::getModel('sales/order')->load($lastOrderId);
+            $message = $helper->__('BotDoc Request sent to %s and %s',$postParams['email'],$postParams['phone']);
+            if(empty($postParams['enable_email'])){
+                unset($postParams['email']);
+                $message = $helper->__('BotDoc Request sent to phone: %s',$postParams['phone']);
+            }
+            if(empty($postParams['enable_phone'])){
+                unset($postParams['phone']);
+                $message = $helper->__('BotDoc Request sent to email: %s',$postParams['email']);
+            }
+            if(empty($postParams['phone']) && empty($postParams['email'])){
+                Mage::getSingleton('core/session')->addError($helper->__('Please fill or select an email or phone number'));
+                return $this->_redirectReferer();
+            }
+            // Add the comment and save the order (last parameter will determine if comment will be sent to customer)
+            try {
+                $order = Mage::getModel('sales/order')->load($postParams['order_id']);
+                $order
+                ->addStatusHistoryComment($message.' | <br/> '.$postParams['comment'],false)
+                ->setIsCustomerNotified(false)
+                ->save();
+                Mage::getSingleton('core/session')->addSuccess($helper->__('Request sent with success'));         
+            } catch (Exception $e) {
+                Mage::getSingleton('core/session')->addError($e->getMessage());        
+            }
+
+            
+        }else{
+            Mage::getSingleton('core/session')->addError($helper->__('Please send a message to your customer')); 
+        }
+        //print_r($postParams);
+        //die();
+        $this->_redirectReferer();
     }
+
+   
 }

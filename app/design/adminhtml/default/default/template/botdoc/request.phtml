@@ -32,14 +32,14 @@ if ($this->canDisplayBotDoc()): ?>
 	    <div class="entry-edit">
 	        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
 				<fieldset>
-					<input type="hidden" id="request[order_id]" name="request[order_id]" value="order" />
+					<input type="hidden" id="request[order_id]" name="request[order_id]" value="<?php echo $this->getOrderId(); ?>" />
 					<span class="field-row">
 						<label class="normal" for="botdoc_email"><?php echo Mage::helper('botdoc_botdoc')->__('Email Address: ') ?></label>
-			            <input class="input-text" type="text" id="botdoc_email" name="request[email]" value="<?php echo $this->getEmail(); ?>" />
+			            <input class="input-text" type="text" id="botdoc_email" name="request[email]" value="<?php echo $this->getCustomerEmail(); ?>" />
 			        </span>
 			        <span class="field-row">
 						<label class="normal" for="botdoc_phone_number"><?php echo Mage::helper('botdoc_botdoc')->__('Phone Number: ') ?></label>
-			            <input class="input-text" type="text" id="botdoc_phone_number" name="request[phone]" value="<?php echo $this->getPhoneNumber(); ?>" />
+			            <input class="input-text" type="text" id="botdoc_phone_number" name="request[phone]" value="<?php echo $this->getCustomerPhoneNumber(); ?>" />
 			        </span>
 			        <span class="field-row">
 			            <label class="normal" for="botdoc_comment"><?php echo Mage::helper('botdoc_botdoc')->__('Message:') ?></label>
