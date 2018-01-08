@@ -1,0 +1,3 @@
+[submodule "lib/BotDoc."]
+	path = lib/BotDoc.
+	url = https://github.com/shortsave/SDK_BotDoc_PHP
