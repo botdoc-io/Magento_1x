@@ -71,13 +71,26 @@
             </adminhtml>
         </routers>
     </admin>
+    <frontend>
+        <routers>
+            <routeurfrontend>
+                <use>standard</use>
+                <args>
+                    <module>BotDoc_BotDoc</module>
+                    <frontName>botdoc</frontName>
+                </args>
+            </routeurfrontend>
+        </routers>
+    </frontend>
     <default>
         <botdoc>
             <settings>
                 <enabled>0</enabled>
+                <sandbox>0</sandbox>
                 <email></email>
                 <api_key></api_key>
-                <default_message>Hi {{customer.name}}, we from {{store.name}} need a picture of your ID to verify your order {{order.number}}!</default_message>
+                <default_message>Hi {{customer.name}}, we from {{store.name}} need a picture of your ID to verify your order #{{order.number}}!</default_message>
+                <default_subject>{{store.name}} need a documents regarding your order #{{order.number}}</default_subject>
             </settings>
         </botdoc>
     </default>

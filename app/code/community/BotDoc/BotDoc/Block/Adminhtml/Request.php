@@ -156,6 +156,23 @@ class BotDoc_BotDoc_Block_Adminhtml_Request extends Mage_Adminhtml_Block_Templat
     	return $this->changeMessageText(Mage::helper('botdoc_botdoc')->getDefaultMessage());
     }
     /**
+     * Get the Default Message for the account or use ours
+     *
+     * @return boolean
+     */
+    public function getDefaultSubject()
+    {
+        /*
+        {{customer.name}}
+        {{customer.email}}
+        {{store.name}}
+        {{store.phone}}
+        {{order.number}}
+        */
+        return $this->changeMessageText(Mage::helper('botdoc_botdoc')->getDefaultSubject());
+    }
+
+    /**
      * Get The order Number
      *
      * @return string

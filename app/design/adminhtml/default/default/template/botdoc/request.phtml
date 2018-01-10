@@ -33,6 +33,8 @@ if ($this->canDisplayBotDoc()): ?>
 	        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
 				<fieldset>
 					<input type="hidden" id="request[order_id]" name="request[order_id]" value="<?php echo $this->getOrderId(); ?>" />
+					<input type="hidden" id="request[subject]" name="request[subject]" value="<?php echo $this->getDefaultSubject(); ?>" />
+					
 					<span class="field-row">
 						<label class="normal" for="botdoc_email"><?php echo Mage::helper('botdoc_botdoc')->__('Email Address: ') ?></label>
 			            <input class="input-text" type="text" id="botdoc_email" name="request[email]" value="<?php echo $this->getCustomerEmail(); ?>" />

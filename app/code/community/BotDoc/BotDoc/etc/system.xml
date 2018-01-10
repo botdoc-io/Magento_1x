@@ -26,6 +26,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
+                        <sandbox translate="label" module="botdoc_botdoc">
+                            <label>Using Sandbox?</label>
+                            <comment>Using test servers? sandboxapi.botdoc.io</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sandbox>
                         <email translate="label" module="botdoc_botdoc">
                             <label>BotDoc Email</label>
                             <frontend_type>text</frontend_type>
@@ -55,6 +65,17 @@
                             <show_in_store>1</show_in_store>
                             <depends><enabled>1</enabled></depends>
                         </token>
+                        <default_subject translate="label,comment" module="botdoc_botdoc">
+                            <label>Default Email Subject</label>
+                            <comment>You can use {{customer.name}} {{customer.email}} {{store.name}} {{store.phone}} {{order.number}}, just rember to try to keep only 140 characters long </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <validate>validate-length maximum-length-140</validate>
+                            <depends><enabled>1</enabled></depends>
+                        </default_subject>
                         <default_message translate="label,comment" module="botdoc_botdoc">
                             <label>Default Message</label>
                             <comment>You can use {{customer.name}} {{customer.email}} {{store.name}} {{store.phone}} {{order.number}}, just rember to try to keep only 140 characters long </comment>
