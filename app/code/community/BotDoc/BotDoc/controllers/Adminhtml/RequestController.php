@@ -21,6 +21,8 @@
  * @package     BotDoc_BotDoc
  * @author      BotDoc
  */
+require_once(Mage::getBaseDir('lib')."/botdoc/autload")
+
 class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controller_Action
 {
 	public function indexAction()
