@@ -116,9 +116,8 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
                 'short_message'=>$postParams['comment'],
                 'long_message'=>$postParams['comment'],
                 'contact'=>[$botdocContact],
-                'callback_url'=>$helper->getCallBackUrl($order->getStoreId())
-            ]); // \BotDoc\Client\Model\Request | 
-            
+                'callback_url'=>$helper->getCallBackUrl($order->getStoreId())."?&order_id=".$order->getIncrementId(),
+            ]); // \BotDoc\Client\Model\Request |
             $apiInstance = new BotDoc\Client\Api\RequestApi();
             try {
                 // Sending Request
@@ -131,7 +130,7 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
                 ->addStatusHistoryComment($message.' | <br/> '.$postParams['comment'],false)
                 ->setIsCustomerNotified(false)
                 ->save();
-                Mage::getSingleton('core/session')->addSuccess($helper->__('Request sent with success'));    
+                Mage::getSingleton('core/session')->addSuccess($helper->__('Request sent with success'));
             } catch (Exception $e) {
                 Mage::getSingleton('core/session')->addError('Exception when calling RequestApi->requestCreate: '. $e->getMessage());   
             }

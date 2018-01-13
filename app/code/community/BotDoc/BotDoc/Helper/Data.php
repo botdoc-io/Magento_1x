@@ -62,7 +62,7 @@ class BotDoc_BotDoc_Helper_Data extends Mage_Core_Helper_Abstract {
             return Mage::getBaseUrl().self::CALL_BACK_URL;
         }
     }
-
+    
     /**
      * get if the module is enabled
      *
