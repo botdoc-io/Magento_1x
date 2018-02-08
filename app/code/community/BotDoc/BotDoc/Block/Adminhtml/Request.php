@@ -61,7 +61,8 @@ class BotDoc_BotDoc_Block_Adminhtml_Request extends Mage_Adminhtml_Block_Templat
                 ->setData(array(
                     'label'   => Mage::helper('giftmessage')->__('Send Request'),
                     'class'   => 'save',
-                    'type'	  => 'submit'
+                    'type'	  => 'submit',
+                    'onclick' => "Element.addClassName(this,'disabled'); Element.show('loading-mask');",
                 ))
         );
 
