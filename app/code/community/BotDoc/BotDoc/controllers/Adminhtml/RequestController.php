@@ -95,7 +95,7 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
                     'value'=>$postParams['phone']
                 ]);    
             }
-            $contactMethods = [];
+            $contactMethods = array();
             if($smsMethod){
                 $contactMethods[] = $smsMethod;    
             }
@@ -106,8 +106,8 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
             $botdocContact = new BotDoc\Client\Model\Contact([
                 'first_name'=>$order->getBillingAddress()->getFirstname(),
                 'last_name'=>$order->getBillingAddress()->getLastName(),
-                'contactmethod'=> $contactMethods,
-           ]);
+                'contact_method'=> $contactMethods,
+            ]);
             $botdocRequest = new BotDoc\Client\Model\Request([
                 'long_message_subject' => $postParams['subject'],
                 'message'=>$message." - ".$postParams['comment'],
@@ -115,7 +115,7 @@ class BotDoc_BotDoc_Adminhtml_RequestController extends Mage_Adminhtml_Controlle
                 'is_sending'=>false,
                 'short_message'=>$postParams['comment'],
                 'long_message'=>$postParams['comment'],
-                'contact'=>[$botdocContact],
+                'contact'=>array($botdocContact),
                 'callback_url'=>$helper->getCallBackUrl($order->getStoreId())."?&order_id=".$order->getIncrementId(),
             ]); // \BotDoc\Client\Model\Request |
             $apiInstance = new BotDoc\Client\Api\RequestApi();

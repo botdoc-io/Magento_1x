@@ -18,6 +18,7 @@
 -->
 <config>
     <menu>
+        <!--
         <botdoc_request module="botdoc_botdoc" translate="title">
             <title>BotDoc</title>
             <sort_order>100</sort_order>
@@ -39,6 +40,7 @@
                 </submit>
             </children>
         </botdoc_request>
+        -->
     </menu>
     <acl>
         <resources>

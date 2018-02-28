@@ -31,7 +31,7 @@ class BotDoc_BotDoc_IndexController extends Mage_Core_Controller_Front_Action
 
 	protected function _construct()
     {
-        $configuration = new BotDoc\Client\Configuration([
+    	$configuration = new BotDoc\Client\Configuration([
             'email'=>Mage::helper('botdoc_botdoc')->getEmail(),
             'apiKey'=>Mage::helper('botdoc_botdoc')->getApiKey(),
             'accessToken'=>Mage::helper('botdoc_botdoc')->getToken(),
@@ -47,33 +47,49 @@ class BotDoc_BotDoc_IndexController extends Mage_Core_Controller_Front_Action
 	{	
 		$order_id = $this->getRequest()->getParam('order_id');
 		$id = $this->getRequest()->getParam('id');
-
 		if(!empty($id) && !empty($order_id)){
-			if($this->getRequest()->getParam('complete') == true){
-				$apiInstance = new BotDoc\Client\Api\RequestApi();
-				$request = $apiInstance->requestRead($id);
-				if(!empty($request->getMedia())){
-					foreach ($request->getMedia() as $key => $media) {
-						$path_to_save = Mage::getBaseDir('media') . DS . self::FOLDER_TO_SAVE . DS . $order_id;
-						if (!file_exists($path_to_save)) {
-						    mkdir($path_to_save, 0777, true);
-						}
-					    $link_to_view = Mage::getBaseUrl() . "media/" . self::FOLDER_TO_SAVE . "/" . $order_id . "/".$media->getName();
-						$media->downloadAsync($path_to_save)->then(
-					                function($reponse){
-					                }
-					            )
-					            ->wait();
-					    $order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
-                	    $order
-		                ->addStatusHistoryComment(
-		                	"BotDoc Automated Message - File request complete " . 
-		                	$request->getIdentifier() . 
-		                	" Download at: <a href='$link_to_view' target='_NEW'> ".$media->getName()."</a>" )
-		                ->setIsCustomerNotified(false)
-		                ->save();
+			$apiInstance = new BotDoc\Client\Api\RequestApi();
+			$request = $apiInstance->requestRead($id);
+			if(!empty($request->getMedia())){
+				$message = "TESTE BotDoc Automated Message - File request complete Identifier:" . $request->getIdentifier() . "<br/>Files:";
+				foreach ($request->getMedia() as $key => $media) {
+					$path_to_save = Mage::getBaseDir('media') . DS . self::FOLDER_TO_SAVE . DS . $order_id;
+					if (!file_exists($path_to_save)) {
+					    mkdir($path_to_save, 0777, true);
 					}
-				}	
+					$fileName = $media->getId().$media->getName();
+					//Slugfying The FileName
+					$fileName = trim(preg_replace('/[^A-Za-z0-9-.5]+/', '-', $fileName));
+					if(is_file($path_to_save . DS . $fileName)) {
+						//If this File got downloaded for some reason in the past... Remove it!
+						unlink($path_to_save . DS . $fileName);
+					}
+
+					$link_to_view = Mage::getBaseUrl() . "media/" . self::FOLDER_TO_SAVE . "/" . $order_id . "/".$fileName;
+					// TODO: Imporvement Make The Download Async with a Quee 
+					$media->downloadAsync($path_to_save,$fileName)->then( 
+						// $onFulfilled
+					    function ($value) {
+					    },
+					    // $onRejected
+					    function ($reason) {
+					    	// TODO Try to Download Again a few more times
+					    }
+					)->wait(false); 
+				    $message .= " <a href='" . $link_to_view . "' target='_BLANK'> ".$media->getName()."</a>,";
+
+            	    
+				}
+				$message = trim($message,",");
+				if($request->getReceiverMessage() ){
+					$message .= "<br/>User Message:<br/>".$request->getReceiverMessage();		
+				}
+
+				$order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
+				$order
+	                ->addStatusHistoryComment($message)
+	                ->setIsCustomerNotified(false)
+	                ->save();
 			}
 		}
 
